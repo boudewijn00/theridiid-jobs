@@ -44,7 +44,7 @@ export default {
   align-items: flex-start;
   justify-content: space-between;
   background-color: white;
-  padding: 10px;
+  padding: 0 10px 10px 10px;
   border-radius: 5px;
   margin-bottom: 10px;
 }
@@ -62,5 +62,10 @@ export default {
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+
+.job-view h2 {
+  margin: 5px 0 5px 0;
+  font-size: 1.2em;
 }
 </style>
