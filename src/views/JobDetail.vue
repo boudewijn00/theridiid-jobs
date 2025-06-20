@@ -18,37 +18,35 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 import axios from 'axios';
 
-export default {
-  data() {
-    return {
-      job: {}
-    };
-  },
-  async created() {
-    const jobId = this.$route.params.id;
-    try {
-      const authToken = import.meta.env.VITE_AUTH_TOKEN;
-      const host = import.meta.env.VITE_HOST;
-      const response = await axios.get(`${host}/indeed?external_id=eq.${jobId}`, {
-        headers: {
-          'Authorization': `Bearer ${authToken}`
-        }
-      });
-      this.job = response.data[0];
-    } catch (error) {
-      console.error('Error fetching job details:', error);
-    }
-  },
-  computed: {
-    formattedPosted() {
-      const date = new Date(this.job.external_created_at * 1000);
-      return date.toLocaleString(undefined, { hour: '2-digit', minute: '2-digit', year: 'numeric', month: '2-digit', day: '2-digit' });
-    }
+const job = ref({});
+
+const route = useRoute();
+
+const formattedPosted = computed(() => {
+  const date = new Date(job.value.external_created_at * 1000);
+  return date.toLocaleString(undefined, { hour: '2-digit', minute: '2-digit', year: 'numeric', month: '2-digit', day: '2-digit' });
+});
+
+onMounted(async () => {
+  const jobId = route.params.id;
+  try {
+    const authToken = import.meta.env.VITE_AUTH_TOKEN;
+    const host = import.meta.env.VITE_HOST;
+    const response = await axios.get(`${host}/indeed?external_id=eq.${jobId}`, {
+      headers: {
+        'Authorization': `Bearer ${authToken}`
+      }
+    });
+    job.value = response.data[0];
+  } catch (error) {
+    console.error('Error fetching job details:', error);
   }
-};
+});
 </script>
 
 <style scoped>
