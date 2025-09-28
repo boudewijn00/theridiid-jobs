@@ -12,9 +12,14 @@ button {
   border: none;
   padding: 10px;
   border-radius: 5px;
-  font-size: 1em;
   text-align: left;
   background-color: var(--wenge);
+}
+
+button.inverted {
+  background-color: var(--mint-cream);
+  color: var(--wenge);
+  border: 1px solid var(--wenge);
 }
 
 .job-listing button {
@@ -127,15 +132,15 @@ button {
   }
 
   .info-container {
-    grid-column: 5 / 6;
+    grid-column: 5 / 7;
   }
 
   .filter-container {
-    grid-column: 2 / 3;
+    grid-column: 2 / 4;
   }
 
   .more-jobs-container {
-    grid-column: 3 / 6;
+    grid-column: 4 / 7;
   }
 
 
