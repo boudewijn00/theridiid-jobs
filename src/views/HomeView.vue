@@ -23,13 +23,13 @@ export default {
       });
       this.jobs = jobsResponse.data;
 
-      const chartResponse = await axios.get(`${host}/indeed_jobs_grouped_by_year_month`, {
+      const chartResponse = await axios.get(`${host}/indeed_grouped_by_month_without_limit`, {
         headers: {
           'Authorization': `Bearer ${authToken}`
         }
       });
 
-      const chartData = chartResponse.data;
+      const chartData = chartResponse.data.reverse();
       const labels = chartData.map(item => new Date(item.month).toLocaleDateString('en-US', {
         month: 'numeric',
         year: 'numeric'
@@ -78,9 +78,6 @@ export default {
 
 <template>
   <div class="table-container">
-    <div class="chart-container">
-      <Line v-if="!isLoading" :data="chartData" :options="chartOptions"></Line>
-    </div>
     <div class="job-listing">
       <JobItem
         v-for="job in jobs"
@@ -88,11 +85,14 @@ export default {
         :title="job.title"
         :country="job.country"
         :city="job.location"
-        :type="job.remote_work_model_type || 'N/A'"
+        :company="job.company"
         :salary="job.salary_min_yearly ? `€${job.salary_min_yearly} - €${job.salary_max_yearly}` : 'N/A'"
         :posted="job.external_created_at"
       />
       <button class="view-more-jobs" @click="$router.push({ name: 'MoreJobs' })">more jobs</button>
+    </div>
+    <div class="chart-container">
+      <Line v-if="!isLoading" :data="chartData" :options="chartOptions"></Line>
     </div>
   </div>
   <div class="info-container">
