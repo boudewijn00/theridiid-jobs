@@ -94,8 +94,8 @@ button.inverted {
   border-radius: 5px;
 }
 
-.more-jobs-container {
-  margin-bottom: 40px;
+.more-jobs-container, .chart-container, .info-container {
+  margin-bottom: 60px;
 }
 
 .footer {

@@ -6,7 +6,7 @@
           <div class="search-container">
             <span>
               <a href="#" @click="$router.push({ name: 'home' })">
-                Theridiid
+                Hello Data
               </a>
               <input type="text" placeholder="looking for a job..." />
               <button>search</button>
@@ -15,7 +15,7 @@
           <router-view></router-view>
         </div>
         <footer class="footer">
-          <p>&copy; 2025 Theridiid</p>
+          <p>&copy; 2025 Hello Data</p>
         </footer>
       </div>
     </main>

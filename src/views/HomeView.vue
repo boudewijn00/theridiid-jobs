@@ -1,3 +1,32 @@
+<template>
+  <div v-if="!isLoading" class="table-container">
+    <div class="job-listing">
+      <JobItem
+        v-for="job in jobs"
+        :key="job.external_id"
+        :external_id="job.external_id"
+        :title="job.title"
+        :country="job.country"
+        :city="job.location"
+        :company="job.company"
+        :salary="job.salary_min_yearly ? `€${job.salary_min_yearly} - €${job.salary_max_yearly}` : 'N/A'"
+        :posted="job.external_created_at"
+      />
+      <button class="view-more-jobs" @click="$router.push({ name: 'MoreJobs' })">more jobs</button>
+    </div>
+    <div v-if="!isLoading" class="chart-container">
+      <Line  :data="chartData" :options="chartOptions"></Line>
+    </div>
+  </div>
+  <div v-if="!isLoading" class="info-container">
+    <h2>Theridiid, <br/> the spider in the web</h2>
+    <p>
+      Jobs move fast — they’re posted, filled, and gone in the blink of an eye. At Theridiid, we spin a wide-reaching digital web to catch those opportunities before they vanish.
+Like the spider in the web, we stay alert, scanning the air for new openings across the web — no matter how fleeting. The minute a job appears, we’ve got it.
+    </p>
+  </div>
+</template>
+
 <script>
 import axios from 'axios';
 import { Line } from 'vue-chartjs';
@@ -75,31 +104,3 @@ export default {
   },
 };
 </script>
-
-<template>
-  <div class="table-container">
-    <div class="job-listing">
-      <JobItem
-        v-for="job in jobs"
-        :external_id="job.external_id"
-        :title="job.title"
-        :country="job.country"
-        :city="job.location"
-        :company="job.company"
-        :salary="job.salary_min_yearly ? `€${job.salary_min_yearly} - €${job.salary_max_yearly}` : 'N/A'"
-        :posted="job.external_created_at"
-      />
-      <button class="view-more-jobs" @click="$router.push({ name: 'MoreJobs' })">more jobs</button>
-    </div>
-    <div class="chart-container">
-      <Line v-if="!isLoading" :data="chartData" :options="chartOptions"></Line>
-    </div>
-  </div>
-  <div class="info-container">
-    <h2>Theridiid, <br/> the spider in the web</h2>
-    <p>
-      Jobs move fast — they’re posted, filled, and gone in the blink of an eye. At Theridiid, we spin a wide-reaching digital web to catch those opportunities before they vanish.
-Like the spider in the web, we stay alert, scanning the air for new openings across the web — no matter how fleeting. The minute a job appears, we’ve got it.
-    </p>
-  </div>
-</template>
