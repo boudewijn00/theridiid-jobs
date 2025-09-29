@@ -6,7 +6,7 @@
     <div class="job-details">
       <span>{{ country }}</span>
       <span>{{ city }}</span>
-      <span>{{ type }}</span>
+      <span>{{ company }}</span>
     </div>
     <span>{{ salary }}</span>
     <span>{{ formattedPosted }}</span>
@@ -21,7 +21,7 @@ export default {
     title: String,
     country: String,
     city: String,
-    type: String,
+    company: String,
     salary: String,
     posted: {
       type: Number,
